@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#define ADDITION_CHOICE	1
+#define SUBSTRACTION_CHOICE 2
+#define MULTIPLICATION_CHOICE	3
+#define DIVISION_CHOICE	4
+#define EXIT_CHOICE	5
+
 void	display_welcome(void)
 {
 	printf("Calculatrice by Judith\n\n");
@@ -38,57 +44,54 @@ int	add(int num1, int num2)
 {
 	int	result;
 
-	result = num1 + num2;
-	return (result);
+	return (result = num1 + num2);
 }
 
-int	sub(int num1, int num2)
+int	substract(int num1, int num2)
 {
 	int	result;
 
-	result = num1 - num2;
-	return (result);
+	return (result = num1 - num2);
 }
 
-int	mult(int num1, int num2)
+int	multiply(int num1, int num2)
 {
 	int	result;
 
-	result = num1 * num2;
-	return (result);
+	return (result = num1 * num2);
 }
 
-int	divi(int num1, int num2)
+int	divide(int num1, int num2)
 {
 	int	result;
 
-	result = num1 / num2;
-	return (result);
+	return (result = num1 / num2);
 }
 
-int	calculatrice(int choice, int num1, int num2)
+int	resolving(int choice, int num1, int num2)
 {
 	int	result;
 
-	if (choice == 1)
+	if (choice == ADDITION_CHOICE)
 	{
-		result = add(num1, num2);
-		return (result);
+		return (result = add(num1, num2));
 	}
-	else if (choice == 2)
+	else if (choice == SUBSTRACTION_CHOICE)
 	{
-		result = sub(num1, num2);
-		return (result);
+		return (result = substract(num1, num2));
 	}
-	else if (choice == 3)
+	else if (choice == MULTIPLICATION_CHOICE)
 	{
-		result = mult(num1, num2);
-		return (result);
+		return (result = multiply(num1, num2));
 	}
-	else if (choice == 4)
+	else if (choice == DIVISION_CHOICE)
 	{
-		result = divi(num1, num2);
-		return (result);
+		if (num2 == 0)
+		{
+			printf("\ncan't divide by 0\n");
+		}
+		else
+		return (result = divide(num1, num2));
 	}
 	else
 		return (0);
@@ -96,22 +99,22 @@ int	calculatrice(int choice, int num1, int num2)
 
 void	display_result(int result, int num1, int num2, int choice)
 {
-	if (choice == 1)
+	if (choice == ADDITION_CHOICE)
 	{
 		printf("\nResultat :  %d + %d = ", num1, num2);
 		printf("%d.\n\n", result);
 	}
-	else if (choice == 2)
+	else if (choice == SUBSTRACTION_CHOICE)
 	{
 		printf("\nResultat :  %d - %d = ", num1, num2);
 		printf("%d.\n\n", result);
 	}
-	else if (choice == 3)
+	else if (choice == MULTIPLICATION_CHOICE)
 	{
 		printf("\nResultat :  %d * %d = ", num1, num2);
 		printf("%d.\n\n", result);
 	}
-	else if (choice == 4)
+	else if (choice == DIVISION_CHOICE && num2 != 0)
 	{
 		printf("\nResultat :  %d / %d = ", num1, num2);
 		printf("%d.\n\n", result);
@@ -131,13 +134,13 @@ int	main(void)
 		display_menu();
 		choice = getting_user_choice();
 		printf("\nChoix numéro: %d\n\n", choice);
-		if (choice != 5)
+		if (choice != EXIT_CHOICE)
 		{
 			if (0 < choice && choice < 6)
 			{
 				num1 = getting_user_number();
 				num2 = getting_user_number();
-				result = calculatrice(choice, num1, num2);
+				result = resolving(choice, num1, num2);
 				display_result(result, num1, num2, choice);
 			}
 			else
