@@ -68,6 +68,43 @@ int	divide(int num1, int num2)
 	return (result = num1 / num2);
 }
 
+char	getting_operator(int choice)
+{
+	char	plus;
+	char	minus;
+	char	times;
+	char	divided;
+	char	operator;
+
+	plus = '+';
+	minus = '-';
+	times = '*';
+	divided = '/';
+	if (0 < choice && choice < 6)
+	{
+		if (choice == ADDITION_CHOICE)
+		{
+			return (operator = plus);
+		}
+		else if (choice == SUBSTRACTION_CHOICE)
+		{
+			return (operator = minus);
+		}
+		else if (choice == MULTIPLICATION_CHOICE)
+		{
+			return (operator = times);
+		}
+		else 
+		{	
+			return (operator = divided);
+		}
+	}
+	else
+	{
+		return(0);
+	}
+}
+
 int	resolving(int choice, int num1, int num2)
 {
 	int	result;
@@ -97,28 +134,10 @@ int	resolving(int choice, int num1, int num2)
 		return (0);
 }
 
-void	display_result(int result, int num1, int num2, int choice)
+void	display_result(int result, int num1, int num2, char operator)
 {
-	if (choice == ADDITION_CHOICE)
-	{
-		printf("\nResultat :  %d + %d = ", num1, num2);
-		printf("%d.\n\n", result);
-	}
-	else if (choice == SUBSTRACTION_CHOICE)
-	{
-		printf("\nResultat :  %d - %d = ", num1, num2);
-		printf("%d.\n\n", result);
-	}
-	else if (choice == MULTIPLICATION_CHOICE)
-	{
-		printf("\nResultat :  %d * %d = ", num1, num2);
-		printf("%d.\n\n", result);
-	}
-	else if (choice == DIVISION_CHOICE && num2 != 0)
-	{
-		printf("\nResultat :  %d / %d = ", num1, num2);
-		printf("%d.\n\n", result);
-	}
+	printf("\nResultat :  %d %c %d = ", num1, operator,  num2);
+	printf("%d.\n\n", result);	
 }
 
 int	main(void)
@@ -126,6 +145,7 @@ int	main(void)
 	int	num1;
 	int	num2;
 	int	choice;
+	int	operator;
 	int	result;
 
 	display_welcome();
@@ -133,6 +153,7 @@ int	main(void)
 	{
 		display_menu();
 		choice = getting_user_choice();
+		operator=getting_operator(choice);
 		printf("\nChoix numéro: %d\n\n", choice);
 		if (choice != EXIT_CHOICE)
 		{
@@ -141,7 +162,7 @@ int	main(void)
 				num1 = getting_user_number();
 				num2 = getting_user_number();
 				result = resolving(choice, num1, num2);
-				display_result(result, num1, num2, choice);
+				display_result(result, num1, num2, operator);
 			}
 			else
 			{
@@ -150,5 +171,7 @@ int	main(void)
 		}
 	}
 	while (choice != 5);
-	return (0);
+	{
+		return (0);
+	}
 }
